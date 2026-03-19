@@ -1,0 +1,33 @@
+go.property("shape_id", 0)
+go.property("is_revealed", false)
+
+function init(self)
+    -- Set the shape sprite based on shape_id
+    local shape_name = "shape" .. self.shape_id
+    sprite.play_flipbook("#shape", shape_name)
+    
+    -- Initially show back, hide front and shape
+    msg.post("#back", "enable")
+    msg.post("#front", "disable")
+    msg.post("#shape", "disable")
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("reveal") then
+        if not self.is_revealed then
+            self.is_revealed = true
+            msg.post("#back", "disable")
+            msg.post("#front", "enable")
+            msg.post("#shape", "enable")
+        end
+    elseif message_id == hash("hide") then
+        if self.is_revealed then
+            self.is_revealed = false
+            msg.post("#back", "enable")
+            msg.post("#front", "disable")
+            msg.post("#shape", "disable")
+        end
+    elseif message_id == hash("remove") then
+        go.delete()
+    end
+end

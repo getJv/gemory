@@ -1,0 +1,93 @@
+local function shuffle(t)
+    for i = #t, 2, -1 do
+        local j = math.random(i)
+        t[i], t[j] = t[j], t[i]
+    end
+end
+
+function init(self)
+    msg.post(".", "acquire_input_focus")
+    math.randomseed(os.time())
+    
+    self.cards = {} -- Stores card info: {id, shape_id, revealed}
+    self.selected_cards = {} -- Stores currently selected card indices
+    self.can_click = true
+    
+    -- Create 12 cards (6 pairs)
+    local shapes = {1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6}
+    shuffle(shapes)
+    
+    local start_x = 240
+    local start_y = 480
+    local spacing_x = 160
+    local spacing_y = 160
+    
+    for i = 1, 12 do
+        local row = math.floor((i - 1) / 4)
+        local col = (i - 1) % 4
+        local pos = vmath.vector3(start_x + col * spacing_x, start_y - row * spacing_y, 0)
+        
+        local card_id = factory.create("#card_factory", pos, nil, {shape_id = shapes[i]})
+        table.insert(self.cards, {id = card_id, shape_id = shapes[i], revealed = false})
+    end
+end
+
+local function reset_selection(self)
+    for _, idx in ipairs(self.selected_cards) do
+        msg.post(self.cards[idx].id, "hide")
+        self.cards[idx].revealed = false
+    end
+    self.selected_cards = {}
+    self.can_click = true
+end
+
+local function remove_pairs(self)
+    for _, idx in ipairs(self.selected_cards) do
+        msg.post(self.cards[idx].id, "remove")
+        self.cards[idx].removed = true
+    end
+    self.selected_cards = {}
+    self.can_click = true
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("touch") and action.pressed and self.can_click then
+        -- Simple grid-based click detection
+        local start_x = 240 - 64
+        local start_y = 480 + 64
+        local spacing_x = 160
+        local spacing_y = 160
+        
+        local col = math.floor((action.x - start_x) / spacing_x)
+        local row = math.floor((start_y - action.y) / spacing_y)
+        
+        if col >= 0 and col < 4 and row >= 0 and row < 3 then
+            local index = row * 4 + col + 1
+            local card = self.cards[index]
+            
+            if card and not card.revealed and not card.removed then
+                card.revealed = true
+                msg.post(card.id, "reveal")
+                table.insert(self.selected_cards, index)
+                
+                if #self.selected_cards == 2 then
+                    self.can_click = false
+                    local card1 = self.cards[self.selected_cards[1]]
+                    local card2 = self.cards[self.selected_cards[2]]
+                    
+                    if card1.shape_id == card2.shape_id then
+                        -- Match!
+                        timer.delay(0.5, false, function()
+                            remove_pairs(self)
+                        end)
+                    else
+                        -- No match
+                        timer.delay(1.0, false, function()
+                            reset_selection(self)
+                        end)
+                    end
+                end
+            end
+        end
+    end
+end
