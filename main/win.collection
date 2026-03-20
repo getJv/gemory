@@ -1,0 +1,17 @@
+name: "win"
+scale_along_z: 0
+instances {
+  id: "win_go"
+  prototype: "/main/win.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+}

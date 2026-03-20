@@ -1,0 +1,43 @@
+go.property("shape_id", 0)
+go.property("is_revealed", false)
+
+function init(self)
+    -- Set the shape sprite based on shape_id
+    local shape_name = "shape" .. self.shape_id
+    sprite.play_flipbook("#shape", shape_name)
+    
+    -- Initially show back, hide front and shape
+    msg.post("#back", "enable")
+    msg.post("#front", "disable")
+    msg.post("#shape", "disable")
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("reveal") then
+        if not self.is_revealed then
+            self.is_revealed = true
+            sound.play("#stone_drag")
+            -- Flip animation: Scale down to 0, then change visibility and scale up
+            go.animate(".", "scale.x", go.PLAYBACK_ONCE_FORWARD, 0, go.EASING_INOUTQUAD, 0.15, 0, function()
+                msg.post("#back", "disable")
+                msg.post("#front", "enable")
+                msg.post("#shape", "enable")
+                go.animate(".", "scale.x", go.PLAYBACK_ONCE_FORWARD, 1, go.EASING_INOUTQUAD, 0.15)
+            end)
+        end
+    elseif message_id == hash("hide") then
+        if self.is_revealed then
+            self.is_revealed = false
+            -- Flip animation: Scale down to 0, then change visibility and scale up
+            go.animate(".", "scale.x", go.PLAYBACK_ONCE_FORWARD, 0, go.EASING_INOUTQUAD, 0.15, 0, function()
+                msg.post("#back", "enable")
+                msg.post("#front", "disable")
+                msg.post("#shape", "disable")
+                go.animate(".", "scale.x", go.PLAYBACK_ONCE_FORWARD, 1, go.EASING_INOUTQUAD, 0.15)
+            end)
+        end
+    elseif message_id == hash("remove") then
+        go.cancel_animations(".", "scale.x")
+        go.delete()
+    end
+end

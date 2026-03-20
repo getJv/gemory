@@ -1,0 +1,12 @@
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("touch") and action.pressed then
+        local start_button = gui.get_node("start_button")
+        if gui.pick_node(start_button, action.x, action.y) then
+            msg.post("main:/loader#loader_script", "show_game")
+        end
+    end
+end
