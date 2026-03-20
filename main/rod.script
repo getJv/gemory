@@ -1,0 +1,15 @@
+function init(self)
+    msg.post(".", "acquire_input_focus")
+    self.rod_tip = vmath.vector3(480, 320, 0) -- Center of the screen
+    self.line_end = self.rod_tip
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("touch") and action.pressed then
+        self.line_end = vmath.vector3(action.x, action.y, 0)
+    end
+end
+
+function update(self, dt)
+    msg.post("@render:", "draw_line", { start_point = self.rod_tip, end_point = self.line_end, color = vmath.vector4(1, 1, 1, 1) })
+end
