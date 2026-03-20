@@ -1,8 +1,8 @@
 name: "win"
 scale_along_z: 0
-embedded_instances {
-  id: "win"
-  data: "components {\n  id: \"win_gui\"\n  component: \"/main/win.gui\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\nembedded_components {\n  id: \"victory_sound\"\n  type: \"sound\"\n  data: \"sound: \\\"/assets/sounds/victory.wav\\\"\\nlooping: false\\ngroup: \\\"master\\\"\\ngain: 1.0\\npan: 0.0\\nspeed: 1.0\\n\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\n"
+instances {
+  id: "win_go"
+  prototype: "/main/win.go"
   position {
     x: 0.0
     y: 0.0
@@ -13,5 +13,10 @@ embedded_instances {
     y: 0.0
     z: 0.0
     w: 1.0
+  }
+  scale {
+    x: 1.0
+    y: 1.0
+    z: 1.0
   }
 }

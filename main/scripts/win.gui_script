@@ -1,7 +1,7 @@
 function init(self)
     msg.post(".", "acquire_input_focus")
     -- Play victory sound
-    sound.play("/win#victory_sound")
+    sound.play("/win_go#victory_sound")
 end
 
 function on_input(self, action_id, action)
