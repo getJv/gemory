@@ -5,8 +5,6 @@ components {
 components {
   id: "sprite"
   component: "/builtins/materials/sprite.material"
-  properties {
-    "texture": "/builtins/graphics/sprite.atlas"
-    "blend_mode": 0
-  }
+  position { x: 0.0 y: 0.0 z: 0.0 }
+  rotation { x: 0.0 y: 0.0 z: 0.0 w: 1.0 }
 }
