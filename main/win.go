@@ -13,10 +13,9 @@ components {
     w: 1.0
   }
 }
-embedded_components {
+components {
   id: "victory_sound"
-  type: "sound"
-  data: "sound: \"/assets/sounds/victory.wav\"\nlooping: false\ngroup: \"master\"\ngain: 1.0\npan: 0.0\nspeed: 1.0\n"
+  component: "/main/victory.sound"
   position {
     x: 0.0
     y: 0.0
