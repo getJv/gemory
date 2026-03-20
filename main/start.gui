@@ -1,6 +1,5 @@
 script: "/main/scripts/start.gui_script"
 nodes {
-  name: "background"
   type: TYPE_BOX
   texture: "game/start_bg"
   id: "background"
@@ -15,7 +14,6 @@ nodes {
   inherit_alpha: true
 }
 nodes {
-  name: "start_button"
   type: TYPE_BOX
   texture: "game/button_bg"
   id: "start_button"
@@ -30,7 +28,6 @@ nodes {
   inherit_alpha: true
 }
 nodes {
-  name: "start_text"
   type: TYPE_TEXT
   text: "Click to Start"
   font: "system_font"
@@ -59,3 +56,6 @@ fonts {
   name: "system_font"
   font: "/builtins/fonts/default.font"
 }
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT
+max_nodes: 512
