@@ -1,13 +1,23 @@
 function init(self)
     msg.post(".", "acquire_input_focus")
-    msg.post("#start_proxy", "load")
+    self.current_proxy = "#start_proxy"
+    msg.post(self.current_proxy, "load")
 end
 
 function on_message(self, message_id, message, sender)
     if message_id == hash("proxy_loaded") then
         msg.post(sender, "enable")
     elseif message_id == hash("show_game") then
-        msg.post("#start_proxy", "unload")
-        msg.post("#game_proxy", "load")
+        msg.post(self.current_proxy, "unload")
+        self.current_proxy = "#game_proxy"
+        msg.post(self.current_proxy, "load")
+    elseif message_id == hash("show_win") then
+        msg.post(self.current_proxy, "unload")
+        self.current_proxy = "#win_proxy"
+        msg.post(self.current_proxy, "load")
+    elseif message_id == hash("restart_game") then
+        msg.post(self.current_proxy, "unload")
+        self.current_proxy = "#game_proxy"
+        msg.post(self.current_proxy, "load")
     end
 end
