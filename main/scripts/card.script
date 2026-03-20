@@ -16,6 +16,7 @@ function on_message(self, message_id, message, sender)
     if message_id == hash("reveal") then
         if not self.is_revealed then
             self.is_revealed = true
+            sound.play("#stone_drag")
             -- Flip animation: Scale down to 0, then change visibility and scale up
             go.animate(".", "scale.x", go.PLAYBACK_ONCE_FORWARD, 0, go.EASING_INOUTQUAD, 0.15, 0, function()
                 msg.post("#back", "disable")

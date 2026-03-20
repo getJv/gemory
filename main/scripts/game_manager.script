@@ -83,10 +83,12 @@ function on_input(self, action_id, action)
                     local card2 = self.cards[self.selected_cards[2]]
                     
                     if card1.shape_id == card2.shape_id then
+                        sound.play("#seal_happy")
                         timer.delay(0.5, false, function()
                             remove_pairs(self)
                         end)
                     else
+                        sound.play("#seal_sad")
                         timer.delay(1.0, false, function()
                             reset_selection(self)
                         end)

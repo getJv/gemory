@@ -2,7 +2,7 @@ name: "game"
 scale_along_z: 0
 embedded_instances {
   id: "game_manager"
-  data: "components {\n  id: \"game_manager_script\"\n  component: \"/main/scripts/game_manager.script\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\nembedded_components {\n  id: \"card_factory\"\n  type: \"factory\"\n  data: \"prototype: \\\"/main/card.go\\\"\\nload_dynamically: false\\n\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\n"
+  data: "components {\n  id: \"game_manager_script\"\n  component: \"/main/scripts/game_manager.script\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\ncomponents {\n  id: \"seal_happy\"\n  component: \"/main/seal_happy.sound\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\ncomponents {\n  id: \"seal_sad\"\n  component: \"/main/seal_sad.sound\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\nembedded_components {\n  id: \"card_factory\"\n  type: \"factory\"\n  data: \"prototype: \\\"/main/card.go\\\"\\nload_dynamically: false\\n\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\n"
   position {
     x: 0.0
     y: 0.0
