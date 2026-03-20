@@ -1,23 +1,8 @@
 name: "main"
 scale_along_z: 0
-embedded_instances {
+instances {
   id: "rod"
-  data: "components {\n"
-  "  id: \"script\"\n"
-  "  component: \"/main/rod.script\"\n"
-  "  position {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "  }\n"
-  "  rotation {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "    w: 1.0\n"
-  "  }\n"
-  "}\n"
-  ""
+  prototype: "/main/rod.go"
   position {
     x: 480.0
     y: 320.0
@@ -28,10 +13,5 @@ embedded_instances {
     y: 0.0
     z: 0.0
     w: 1.0
-  }
-  scale {
-    x: 1.0
-    y: 1.0
-    z: 1.0
   }
 }
